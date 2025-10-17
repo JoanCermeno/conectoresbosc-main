@@ -6,7 +6,6 @@
 
 echo "Running Laravel migrations..."
 php artisan migrate --force --no-interaction
-php artisan key:generate --force --no-interaction
 
 echo "Starting Apache..."
 exec apache2-foreground

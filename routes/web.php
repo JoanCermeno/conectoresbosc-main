@@ -60,6 +60,11 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/check-key', function () {
+    return config('app.key');
+});
+
+
 //  Route::get('ticket', function(){
 //     $order = Order::first(); 
 
