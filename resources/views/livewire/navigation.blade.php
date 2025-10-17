@@ -120,7 +120,7 @@
                         @foreach ($families as $family)
                             
                             <li wire:mouseover="$set('family_id', {{ $family->id }})">
-                                <a href="{{ route('families.show', $family) }}"
+                                <a href="{{ route('families.show', ['family' => $family->id]) }}"
                                    class="flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-blue-200">
                                     {{ $family->name }}
 
@@ -143,7 +143,7 @@
                             {{ $this->familyName }}
                         </p>
 
-                        <a href="{{ route('families.show', $family_id) }}" class="btn btn-blue">
+                        <a href="{{ route('families.show', ['family' => $family_id]) }}" class="btn btn-blue">
                             Ver Todo
                         </a>
                    
