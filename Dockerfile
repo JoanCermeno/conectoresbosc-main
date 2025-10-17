@@ -13,9 +13,6 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Instala extensiones GD (para manipulación de imágenes, si la necesitas)
-RUN docker-php-ext-configure gd --with-jpeg --with-png \
-    && docker-php-ext-install gd
 
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
