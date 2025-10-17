@@ -11,25 +11,40 @@ class Navigation extends Component
     public $families;
     public $family_id;
 
-    public function mount()
+  public function mount()
     {
         $this->families = \App\Models\Family::all();
-        $this->family_id = $this->families->first()->id;
+
+        if ($this->families->isNotEmpty()) {
+            $this->family_id = $this->families->first()->id;
+        } else {
+            $this->family_id = null; // o un valor por defecto si lo necesitas
+        }
     }
 
     #[Computed()]
-    public function categories() 
+    public function categories()
     {
-        return \App\Models\Category::where('family_id', $this->family_id)
-        ->with('subcategories')
-        ->get();
+        if ($this->family_id) {
+            return \App\Models\Category::where('family_id', $this->family_id)
+                ->with('subcategories')
+                ->get();
+        }
+
+        return collect(); // colección vacía
     }
+
 
     #[Computed()]
     public function familyName()
     {
-        return \App\Models\Family::find($this->family_id)->name;
+        if ($this->family_id) {
+            return \App\Models\Family::find($this->family_id)?->name;
+        }
+
+        return 'Sin familia';
     }
+
 
     public function render()
     {
