@@ -2,7 +2,7 @@
 FROM php:8.2-apache
 
 # Instala extensiones de PHP necesarias (ajusta según tus necesidades)
-RUN docker-php-ext-install pdo_mysql opcache
+RUN docker-php-ext-install pdo_mysql opcache bcmath
 
 # Instala las herramientas del sistema necesarias
 RUN apt-get update && apt-get install -y \
