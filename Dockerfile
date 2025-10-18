@@ -28,25 +28,27 @@ COPY . .
 # Instala las dependencias de Composer (sin dependencias de desarrollo para producción)
 RUN composer install --no-dev --optimize-autoloader
 
-# Instala Node.js y npm (si tu aplicación usa Vite/Webpack)
+# Instala Node.js
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
-ENV NODE_ENV=production
+# ¡AQUÍ ESTÁ EL CAMBIO!
+# 1. Copia los archivos de dependencias
+COPY package.json package-lock.json ./
 
-RUN npm install --include=dev
+# 2. Instala TODAS las dependencias (incluyendo las de desarrollo como Vite)
+RUN npm ci
 
-# Instala las dependencias de Node.js y compila los assets
-RUN npm install \
-    && npm run build \
+# 3. Copia el resto de tu código
+COPY . .
+
+# 4. Ahora sí, compila tus assets. ¡Vite ya existe!
+RUN npm run build \
     && echo "✅ Vite build completado correctamente" \
-    || (echo "❌ ERROR: El build de Vite falló. Revisa tu configuración." && exit 1)
+    || (echo "❌ ERROR: El build de Vite falló." && exit 1)
 
-
-
-# Verifica que los archivos se generaron
-RUN ls -la public/build \
-    || (echo "❌ ERROR: No se encontró la carpeta public/build después del build." && exit 1)
+# 5. (Opcional pero recomendado) Limpia las dependencias de desarrollo para que no ocupen espacio
+RUN npm prune --production
 
 
 # Configura los permisos de almacenamiento y caché
