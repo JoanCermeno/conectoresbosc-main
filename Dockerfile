@@ -34,7 +34,14 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
 
 # Instala las dependencias de Node.js y compila los assets
 RUN npm install \
-    && npm run build
+    && npm run build \
+    && echo "✅ Vite build completado correctamente" \
+    || (echo "❌ ERROR: El build de Vite falló. Revisa tu configuración." && exit 1)
+
+# Verifica que los archivos se generaron
+RUN ls -la public/build \
+    || (echo "❌ ERROR: No se encontró la carpeta public/build después del build." && exit 1)
+
 
 # Configura los permisos de almacenamiento y caché
 RUN chown -R www-data:www-data storage bootstrap/cache \
