@@ -8,12 +8,6 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-      build: {
-        outDir: 'public/build',
-        manifest: true,
-        rollupOptions: {
-            input: 'resources/js/app.js',
-        },
-    },
-
+    // Si necesitas especificar el 'outDir', hazlo aquí, pero el plugin ya usa 'public/build' por defecto.
+    // Si lo dejas simple, es mejor.
 });
