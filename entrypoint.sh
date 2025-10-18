@@ -6,7 +6,7 @@
 
 echo "Running Laravel migrations..."
 #generandoo el key de la aplicacion
-php artisan key:generate --force --no-interaction
+
 php artisan migrate --force --no-interaction
 
 echo "Starting Apache..."
