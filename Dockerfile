@@ -32,6 +32,8 @@ RUN composer install --no-dev --optimize-autoloader
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
+ENV NODE_ENV=production
+
 # Instala las dependencias de Node.js y compila los assets
 RUN npm install \
     && npm run build \
