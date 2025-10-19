@@ -35,6 +35,10 @@ fi
 # Espera un momento para asegurar que la base de datos esté lista
 sleep 10
 
+echo "📦 Instalando dependencias de desarrollo para Seeder (Faker)..."
+# Ejecutamos una instalación completa para asegurar que Faker esté disponible para db:seed
+composer install
+
 echo "🔧 Ejecutando migraciones de Laravel..."
 php artisan migrate --force --no-interaction
 php artisan db:seed --force --no-interaction
