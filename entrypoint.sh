@@ -5,6 +5,8 @@ sleep 10
 
 echo "🔧 Ejecutando migraciones de Laravel..."
 php artisan migrate --force --no-interaction
+php artisan db:seed --force --no-interaction
+php artisan storage:link    
 
 # 🛠️ AÑADIMOS ESTA SECCIÓN PARA REFORZAR PERMISOS CRÍTICOS
 # Esto asegura que Apache (que corre como www-data) pueda leer todo lo necesario.
